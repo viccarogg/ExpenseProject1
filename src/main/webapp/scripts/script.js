@@ -2,6 +2,7 @@ window.onload = () => {
     let div = document.createElement('div');
     div.innerHTML = '<p>Welcome to my site</p>';
     document.getElementById('main').appendChild(div);
+    load2();
 };
 
 var load = () => {
@@ -70,5 +71,41 @@ var load2 = () => {
         container.appendChild(typeDiv);
     })
 }
+var load3 = () => {
+	let uName = document.getElementById('uname').value;
+	let passW = document.getElementById('pass').value;
+	let toSend = {uname: uName, pass: passW};
+	console.log(toSend);
+	console.log(JSON.stringify(toSend));
+    fetch('http://localhost:8080/project1/users', {
+        method: 'post',
+        body: JSON.stringify(toSend)
+      })
+    .then(response => {
+        console.log(response);
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        let nameDiv = document.createElement('div');
+        nameDiv.innerHTML = `<p>Username: ${data.USERNAME}</p>`
+        let passDiv = document.createElement('div');
+        passDiv.innerHTML = `<p>Password: ${data.PASSWORD}</p>`
+        let idDiv = document.createElement('div');
+        idDiv.innerHTML = `<p>ID: ${data.USER_ID}</p>`
+        let typeDiv = document.createElement('div');
+        if (data.USER_TYPE == 1)
+            typeDiv.innerHTML = '<p>Type: Customer</p>'
+        else
+            typeDiv.innerHTML = '<p>Type: Employee</p>'
+
+        let container = document.getElementById('main');
+        container.appendChild(nameDiv);
+        container.appendChild(passDiv);
+        container.appendChild(idDiv);
+        container.appendChild(typeDiv);
+    })
+}
 
 document.getElementById('login').addEventListener('click', load2);
+document.getElementById('userpass').addEventListener('click', load3);
