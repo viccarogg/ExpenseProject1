@@ -10,9 +10,20 @@
   	<description></description>
   	<servlet-class>com.george.myservlets.UserData</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ContextServlet</servlet-name>
+  	<display-name>ContextServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.george.myservlets.ContextServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UserData</servlet-name>
   	<url-pattern>/users</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ContextServlet</servlet-name>
+  	<url-pattern>/ContextServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.html</welcome-file>

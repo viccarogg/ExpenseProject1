@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.george.expenses.util.HttpJson;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
@@ -92,26 +94,19 @@ public class UserData extends HttpServlet {
 
 //		InputStream body = request.getInputStream();
 //		body.
-		String uname = request.getParameter("uname");
-		String pass = request.getParameter("pass");
-		System.out.println(uname + "," + pass);
-		System.out.println("here");
+		
+		String jsonString = HttpJson.getBody(request);
+		JSONObject requestJson = new JSONObject(jsonString);
+		
+		String uname = requestJson.getString("uname");
+		String pass = requestJson.getString("pass");
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
-		Connection conn = null;
+		Connection conn = (Connection) request.getServletContext().getAttribute("conn");
 		
 		try {
 			
-		OracleDataSource ods = new OracleDataSource();
-		ods.setServerName("localhost");
-		ods.setServiceName("orcl");
-		ods.setDriverType("thin");
-		ods.setPortNumber(1521);
-		ods.setUser("bank_admin");
-		ods.setPassword("admin");
-		
-		conn = ods.getConnection();
 		System.out.println("here1");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,21 +124,18 @@ public class UserData extends HttpServlet {
 			
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int colCount = rsmd.getColumnCount();
-			System.out.println("here2");
 			
-//			JSONArray jsonArr = new JSONArray();
 			if(rs.next()) {
-				JSONObject jsonObj = new JSONObject();
+				JSONObject responseJson = new JSONObject();
 				for(int i = 1; i <= colCount; i++) {
 					
 					String key = rsmd.getColumnName(i);
 					String val = rs.getString(key);
-					System.out.println(key + ": " + val);
-					jsonObj.put(key, val);
+					responseJson.put(key, val);
 				}
 
-				System.out.println(jsonObj);
-			out.print(jsonObj);
+				System.out.println(responseJson);
+			out.print(responseJson);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
