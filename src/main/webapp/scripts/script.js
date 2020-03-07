@@ -2,7 +2,6 @@ window.onload = () => {
     let div = document.createElement('div');
     div.innerHTML = '<p>Welcome to my site</p>';
     document.getElementById('main').appendChild(div);
-    load2();
 };
 
 var load = () => {
@@ -57,18 +56,21 @@ var load2 = () => {
         let passDiv = document.createElement('div');
         passDiv.innerHTML = `<p>Password: ${data.PASSWORD}</p>`
         let idDiv = document.createElement('div');
-        idDiv.innerHTML = `<p>ID: ${data.USER_ID}</p>`
+        idDiv.innerHTML = `<p>ID: ${data.EMPLOYEE_ID}</p>`
         let typeDiv = document.createElement('div');
-        if (data.USER_TYPE == 1)
-            typeDiv.innerHTML = '<p>Type: Customer</p>'
-        else
+        if (data.ROLE == 0)
             typeDiv.innerHTML = '<p>Type: Employee</p>'
+        else
+            typeDiv.innerHTML = '<p>Type: Manager</p>'
 
+        let manDiv = document.createElement('div');
+        manDiv.innerHTML = `<p>Manager ID: ${data.MANAGER_ID}</p>`
         let container = document.getElementById('main');
         container.appendChild(nameDiv);
         container.appendChild(passDiv);
         container.appendChild(idDiv);
         container.appendChild(typeDiv);
+        container.appendChild(manDiv);
     })
 }
 var load3 = () => {
@@ -92,20 +94,23 @@ var load3 = () => {
         let passDiv = document.createElement('div');
         passDiv.innerHTML = `<p>Password: ${data.PASSWORD}</p>`
         let idDiv = document.createElement('div');
-        idDiv.innerHTML = `<p>ID: ${data.USER_ID}</p>`
+        idDiv.innerHTML = `<p>ID: ${data.EMPLOYEE_ID}</p>`
         let typeDiv = document.createElement('div');
-        if (data.USER_TYPE == 1)
-            typeDiv.innerHTML = '<p>Type: Customer</p>'
-        else
+        if (data.ROLE == 0)
             typeDiv.innerHTML = '<p>Type: Employee</p>'
+        else
+            typeDiv.innerHTML = '<p>Type: Manager</p>'
 
+        let manDiv = document.createElement('div');
+        manDiv.innerHTML = `<p>Manager ID: ${data.MANAGER_ID}</p>`
         let container = document.getElementById('main');
         container.appendChild(nameDiv);
         container.appendChild(passDiv);
         container.appendChild(idDiv);
         container.appendChild(typeDiv);
+        container.appendChild(manDiv);
     })
 }
 
 document.getElementById('login').addEventListener('click', load2);
-document.getElementById('userpass').addEventListener('click', load3);
+//document.getElementById('userpass').addEventListener('click', load3);

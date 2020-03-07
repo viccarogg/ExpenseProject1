@@ -24,6 +24,12 @@ public abstract class User {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", manager_id=" + manager_id + "]";
+	}
+
 	public String getUsername() {
 		return username;
 	}

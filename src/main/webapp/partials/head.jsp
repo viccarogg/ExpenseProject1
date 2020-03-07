@@ -1,5 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
+
+
 
 <head>
     <meta charset="UTF-8">
@@ -19,15 +23,3 @@
 </head>
 
 <body>
-	<div class="container" id="main">
-    <h1>Employee Portal</h1>
-    <form>
-		Username: <input type="text" id="uname">
-		Password: <input type="password" id="pass">    
-		<button type="button" id="userpass">Submit</button>
-    </form>
-    <button type="button" id="login">Login as george</button>
-	</div>
-</body>
-
-</html>
