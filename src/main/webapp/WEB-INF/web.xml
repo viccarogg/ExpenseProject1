@@ -3,7 +3,8 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name><servlet>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
 		<servlet-name>Jersey REST Service</servlet-name>
 		 <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
 		<init-param>
@@ -32,12 +33,7 @@
   	<description></description>
   	<servlet-class>com.george.myservlets.LoginServlet</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>HomeServlet</servlet-name>
-  	<display-name>HomeServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.george.myservlets.HomeServlet</servlet-class>
-  </servlet>
+  
   <servlet>
   	<servlet-name>LogoutServlet</servlet-name>
   	<display-name>LogoutServlet</display-name>
@@ -61,10 +57,6 @@
   	<url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>HomeServlet</servlet-name>
-  	<url-pattern>/home</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
   	<servlet-name>LogoutServlet</servlet-name>
   	<url-pattern>/logout</url-pattern>
   </servlet-mapping>
@@ -78,6 +70,6 @@
   
   <error-page>
   <error-code>404</error-code>
-  <location>/error.html</location>
+  <location>/error.jsp</location>
   </error-page>
 </web-app>

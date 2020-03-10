@@ -11,12 +11,20 @@ public class EmployeeInfo {
 	private String address;
 	private String phone;
 	
-	// these can't be edited?
+	// these can't be edited/not in constructor
 	private double salary;
 	private String title;
 	
+	// this not in constructor but must be set by servlet
+	private String modified;
 	
 	
+	public String getModified() {
+		return this.modified;
+	}
+	public void setModified(String modified) {
+		this.modified = modified;
+	}
 	public EmployeeInfo(String firstName, String lastName, String email, String date, String address, String phone) {
 		super();
 		this.firstName = firstName;

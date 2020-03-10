@@ -30,7 +30,6 @@ public class ContextServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     	// TODO Auto-generated method stub
-    	super.init();
     	ServletContext ctx = config.getServletContext();
     	Connection conn = MyConnection.getMyConnInstance().getConn();
     	ctx.setAttribute("conn", conn);

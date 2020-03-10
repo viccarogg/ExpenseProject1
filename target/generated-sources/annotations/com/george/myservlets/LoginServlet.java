@@ -54,7 +54,6 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("uname");
 		String password = request.getParameter("pass");
 		String role = request.getParameter("role");
-		System.out.println(username + password);
 		EmployeeDAO empdb = new EmployeeDB();
 		
 		User user = null;
@@ -63,12 +62,12 @@ public class LoginServlet extends HttpServlet {
 		else
 			user = empdb.loginManager(username, password);
 		
-		if(user != null) {
-			System.out.println(user);			
+		if(user != null) {	
 
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUser", user);
 			response.sendRedirect("home.jsp");
+			System.out.println(getServletContext().getAttribute("conn"));
 		}
 		else {
 			doGet(request, response);

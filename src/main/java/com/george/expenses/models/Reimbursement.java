@@ -10,6 +10,17 @@ public class Reimbursement {
 	private int ownerId;
 	private Blob receiptImage;	// STRETCH
 	
+	// manually set when calling create, data from session
+	private String creator;
+	
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
 	public Reimbursement(int reimbId, String description, String status, double amount, int ownerId) {
 		super();
 		this.reimbId = reimbId;

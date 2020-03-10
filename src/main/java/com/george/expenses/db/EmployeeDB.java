@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONObject;
@@ -27,16 +28,16 @@ public class EmployeeDB implements EmployeeDAO {
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				// employee matched these credentials. if not then this returns null.
-				result = new Employee(rs.getInt("employee_id"), rs.getString("username"),
-										rs.getString("password"), rs.getInt("manager_id"));
+				result = new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 
 	}
@@ -51,22 +52,21 @@ public class EmployeeDB implements EmployeeDAO {
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				// employee matched these credentials. if not then this returns null.
-				result = new Manager(rs.getInt("employee_id"), rs.getString("username"),
-										rs.getString("password"), rs.getInt("manager_id"));
+				result = new Manager(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public Employee getEmployee(int emp_id) {
-		// TODO Auto-generated method stub
 		Employee result = null;
 		String sql = "SELECT * FROM employees WHERE employee_id=? AND role>=0";
 		try {
@@ -75,36 +75,84 @@ public class EmployeeDB implements EmployeeDAO {
 			rs = pstmt.executeQuery();
 			System.out.println(emp_id);
 
-			if(rs.next()) {
+			if (rs.next()) {
 				// employee matched these credentials. if not then this returns null.
-				result = new Employee(rs.getInt("employee_id"), rs.getString("username"),
-										rs.getString("password"), rs.getInt("manager_id"));
+				result = new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
-		
+
 	}
 
 	@Override
 	public Manager getManager(int emp_id) {
-		// TODO Auto-generated method stub
-		return null;
+		Manager result = null;
+		String sql = "SELECT * FROM employees WHERE employee_id=? AND role=1";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, emp_id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				// employee matched these credentials. if not then this returns null.
+				result = new Manager(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
 	}
 
 	@Override
 	public Collection<Employee> getAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Employee> result = new ArrayList<Employee>();
+		String sql = "SELECT * FROM employees";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// employee matched these credentials. if not then this returns null.
+				result.add(new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
 	}
 
 	@Override
 	public Collection<Employee> getMyEmployees(int emp_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Collection<Employee> result = new ArrayList<Employee>();
+		String sql = "SELECT * FROM employees WHERE manager_id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, emp_id);
+			rs = pstmt.executeQuery();
 
+			while (rs.next()) {
+				// employee matched these credentials. if not then this returns null.
+				result.add(new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
+						rs.getInt("manager_id")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
 }

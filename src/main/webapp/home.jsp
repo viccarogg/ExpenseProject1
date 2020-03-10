@@ -12,4 +12,9 @@
 	 <% }
 	} catch (NullPointerException e) { response.sendRedirect("/project1"); } %>
 
+<table id="reimbusementTable">
+
+</table>
+
+
 <%@ include file="partials/foot.jsp" %>
