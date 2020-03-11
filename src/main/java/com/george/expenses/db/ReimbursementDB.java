@@ -164,7 +164,7 @@ public class ReimbursementDB implements ReimbursementDAO {
 
 	@Override
 	public void reviewReimbursement(int reimb_id, String status) {
-		String sql = "{call review_reimb(?,?)";
+		String sql = "{call review_reimb(?,?)}";
 		
 		try {
 			cstmt = conn.prepareCall(sql);
@@ -177,6 +177,65 @@ public class ReimbursementDB implements ReimbursementDAO {
 		}
 		
 		
+	}
+
+	@Override
+	public Collection<Reimbursement> getReimbursementsByManager(int manager_id) {
+		Collection<Reimbursement> result = new ArrayList<Reimbursement>();
+		String sql = "SELECT * FROM reimbursements WHERE employee_id IN "
+				+ "(SELECT employee_id FROM employees WHERE manager_id=?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, manager_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next())
+				result.add(new Reimbursement(rs.getInt("reimbursement_id"),
+											 rs.getString("description"),
+											 rs.getString("status"),
+											 rs.getDouble("total_amount"),
+											 rs.getInt("employee_id")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public Collection<Reimbursement> getReimbursementsByManagerAndStatus(int manager_id, String status) {
+		Collection<Reimbursement> result = new ArrayList<Reimbursement>();
+		String sql = "SELECT * FROM reimbursements WHERE status=? AND "
+				+ "employee_id IN (SELECT employee_id FROM employees WHERE manager_id=?)";
+		
+		try {
+			if(status.equals("RESOLVED")) {
+				sql = "SELECT * FROM reimbursements WHERE status!='PENDING' AND "
+						+ "employee_id IN (SELECT employee_id FROM employees WHERE manager_id=?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, manager_id);
+			}
+			else {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, status);
+				pstmt.setInt(2, manager_id);
+				
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next())
+				result.add(new Reimbursement(rs.getInt("reimbursement_id"),
+											 rs.getString("description"),
+											 rs.getString("status"),
+											 rs.getDouble("total_amount"),
+											 rs.getInt("employee_id")));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
