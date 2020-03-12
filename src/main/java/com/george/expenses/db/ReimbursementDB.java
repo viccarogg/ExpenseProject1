@@ -119,7 +119,7 @@ public class ReimbursementDB implements ReimbursementDAO {
 		String sql = "SELECT * FROM reimbursements WHERE employee_id=? AND status=?";
 		try {
 			if(status.equals("RESOLVED")) {
-				sql="SELECT * FROM reimbursements WHERE employee_id=? status!='PENDING'";
+				sql="SELECT * FROM reimbursements WHERE employee_id=? AND status!='PENDING'";
 				pstmt = conn.prepareStatement(sql);				
 				pstmt.setInt(1, emp_id);
 			}

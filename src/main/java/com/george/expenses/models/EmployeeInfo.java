@@ -7,7 +7,7 @@ public class EmployeeInfo {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private Date dob;
+	private String dob;
 	private String address;
 	private String phone;
 	
@@ -25,15 +25,26 @@ public class EmployeeInfo {
 	public void setModified(String modified) {
 		this.modified = modified;
 	}
+	public EmployeeInfo(int empId, EmployeeInfo info) {
+		this.empId = empId;
+		this.firstName = info.getFirstName();
+		this.lastName = info.getLastName();
+		this.email = info.getEmail();
+		this.dob = info.getDob();
+		this.address = info.getAddress();
+		this.phone = info.getPhone();
+	}
 	public EmployeeInfo(String firstName, String lastName, String email, String date, String address, String phone) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.dob = Date.valueOf(date);
+		this.dob = date;
 		this.address = address;
 		this.phone = phone;
 	}
+	
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -55,10 +66,10 @@ public class EmployeeInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 	public String getAddress() {
@@ -89,4 +100,10 @@ public class EmployeeInfo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public void setId(int emp_id) {
+		// TODO Auto-generated method stub
+		this.empId = emp_id;
+	}
+	
+	public EmployeeInfo() {}
 }

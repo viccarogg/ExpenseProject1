@@ -2,6 +2,7 @@ package com.george.expenses.db;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class EmployeeInfoDB implements EmployeeInfoDAO {
 	public EmployeeInfo getMyInformation(int emp_id) {
 		EmployeeInfo result = null;
 		String sql = "SELECT * FROM employee_info WHERE employee_id=?";
+		String date = "2000-01-01";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -27,10 +29,12 @@ public class EmployeeInfoDB implements EmployeeInfoDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				if(rs.getDate("date_of_birth") != null)
+					date = rs.getDate("date_of_birth").toString();
 				result = new EmployeeInfo(rs.getString("first_name"),
 										  rs.getString("last_name"), 
 										  rs.getString("email"), 
-										  rs.getDate("date_of_birth").toString(), 
+										  date, 
 										  rs.getString("address"), 
 										  rs.getString("phone"));
 				result.setSalary(rs.getDouble("salary"));
@@ -44,15 +48,15 @@ public class EmployeeInfoDB implements EmployeeInfoDAO {
 	}
 
 	@Override
-	public void updateMyInformation(int emp_id, EmployeeInfo info) {
+	public void updateMyInformation(EmployeeInfo info) {
 		String sql = "{call update_info(?,?,?,?,?,?,?,?)}";
 		try {
 			cstmt = conn.prepareCall(sql);
-			cstmt.setInt(1, emp_id);
+			cstmt.setInt(1, info.getEmpId());
 			cstmt.setString(2, info.getFirstName());
 			cstmt.setString(3, info.getLastName());
 			cstmt.setString(4,  info.getEmail());
-			cstmt.setDate(5, info.getDob());
+			cstmt.setDate(5, Date.valueOf(info.getDob()));
 			cstmt.setString(6, info.getAddress());
 			cstmt.setString(7, info.getPhone());
 			cstmt.setString(8, info.getModified());

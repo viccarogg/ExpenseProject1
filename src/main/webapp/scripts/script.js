@@ -1,116 +1,76 @@
-window.onload = () => {
-    let div = document.createElement('div');
-    div.innerHTML = '<p>Welcome to my site</p>';
-    document.getElementById('main').appendChild(div);
+document.addEventListener("DOMContentLoaded", () => {
+    let userId;
+    if (document.getElementById("welcomeUser"))
+        userId = document.getElementById("welcomeUser").getAttribute("data-id");
+    let userRole;
+    if (document.getElementById("welcomeUser"))
+        userRole = document.getElementById("welcomeUser").getAttribute("data-role");
+
+
+    let infoForm = document.getElementById("myInfoForm");
+    if (infoForm) {
+        // the element is not undefined. we are on the update my info page.
+        populateMyInfo(userId);
+
+        let editBtn = document.getElementById("editInfoForm");
+        let saveBtn = document.getElementById("submitInfoForm");
+        editBtn.addEventListener('click', () => {
+            saveBtn.hidden = false;
+            editBtn.hidden = true;
+
+            toggleForm();
+        });
+        saveBtn.addEventListener('click', () => {
+            saveBtn.hidden = true;
+            editBtn.hidden = false;
+
+            toggleForm();
+            updateInfo(userId);
+        });
+    }
+});
+
+let populateMyInfo = (id) => {
+    // ajax db call to display user info on readonly form
+    let url = `http://localhost:8081/project1/api/info/${id}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("myID").value = id;
+            document.getElementById("myFname").value = data.firstName;
+            document.getElementById("myLname").value = data.lastName;
+            document.getElementById("myEmail").value = data.email;
+            document.getElementById("myDOB").value = data.dob;
+            document.getElementById("myAddress").value = data.address;
+            document.getElementById("myPhone").value = data.phone;
+            document.getElementById("mySalary").value = data.salary;
+            document.getElementById("myTitle").value = data.title;
+        })
 };
 
-var load = () => {
-    let url = 'localhost:8080/project1/users';
-    let request;
-
-    if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    }
-    else if (window.ActiveXObject) {
-        request = new ActiveXObject();
-    }
-
-    request.onreadystatechange = () => {
-        if (request.readyState == 4) {
-            console.log(request.responseText);
-            let jsonObj = JSON.parse(request.responseText);
-
-            let nameDiv = document.createElement('div');
-            nameDiv.innerHTML = `<p>Username: ${jsonObj.USERNAME}</p>`
-            let passDiv = document.createElement('div');
-            passDiv.innerHTML = `<p>Password: ${jsonObj.PASSWORD}</p>`
-            let idDiv = document.createElement('div');
-            idDiv.innerHTML = `<p>ID: ${jsonObj.USER_ID}</p>`
-            let typeDiv = document.createElement('div');
-            if (jsonObj.USER_TYPE == 1)
-                typeDiv.innerHTML = '<p>Type: Customer</p>'
-            else
-                typeDiv.innerHTML = '<p>Type: Employee</p>'
-
-            document.getElementsByTagName('body')[0].appendChild(nameDiv);
-            document.getElementsByTagName('body')[0].appendChild(passDiv);
-            document.getElementsByTagName('body')[0].appendChild(idDiv);
-            document.getElementsByTagName('body')[0].appendChild(typeDiv);
-        }
-    }
-
-    request.open("GET", url, true);
-    request.send();
+let updateInfo = (id) => {
+    let url = `http://localhost:8081/project1/api/info`;
+    let infoObj = {
+        empId: id,
+        firstName: document.getElementById("myFname").value,
+        lastName: document.getElementById("myLname").value,
+        email: document.getElementById("myEmail").value,
+        dob: document.getElementById("myDOB").value,
+        address: document.getElementById("myAddress").value,
+        phone: document.getElementById("myPhone").value,
+        modified: document.getElementById("welcomeUser").getAttribute("data-id")
+    };
+    let options = {
+        method: "put",
+        headers: {"Content-Type" : "application/json"}
+    };
+    options.body = JSON.stringify(infoObj);
+    // return;
+    fetch(url, options);
 };
 
-var load2 = () => {
-    fetch('http://localhost:8080/project1/users')
-    .then(response => {
-        console.log(response);
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        let nameDiv = document.createElement('div');
-        nameDiv.innerHTML = `<p>Username: ${data.USERNAME}</p>`
-        let passDiv = document.createElement('div');
-        passDiv.innerHTML = `<p>Password: ${data.PASSWORD}</p>`
-        let idDiv = document.createElement('div');
-        idDiv.innerHTML = `<p>ID: ${data.EMPLOYEE_ID}</p>`
-        let typeDiv = document.createElement('div');
-        if (data.ROLE == 0)
-            typeDiv.innerHTML = '<p>Type: Employee</p>'
-        else
-            typeDiv.innerHTML = '<p>Type: Manager</p>'
-
-        let manDiv = document.createElement('div');
-        manDiv.innerHTML = `<p>Manager ID: ${data.MANAGER_ID}</p>`
-        let container = document.getElementById('main');
-        container.appendChild(nameDiv);
-        container.appendChild(passDiv);
-        container.appendChild(idDiv);
-        container.appendChild(typeDiv);
-        container.appendChild(manDiv);
-    })
-}
-var load3 = () => {
-	let uName = document.getElementById('uname').value;
-	let passW = document.getElementById('pass').value;
-	let toSend = {uname: uName, pass: passW};
-	console.log(toSend);
-	console.log(JSON.stringify(toSend));
-    fetch('http://localhost:8080/project1/users', {
-        method: 'post',
-        body: JSON.stringify(toSend)
-      })
-    .then(response => {
-        console.log(response);
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-        let nameDiv = document.createElement('div');
-        nameDiv.innerHTML = `<p>Username: ${data.USERNAME}</p>`
-        let passDiv = document.createElement('div');
-        passDiv.innerHTML = `<p>Password: ${data.PASSWORD}</p>`
-        let idDiv = document.createElement('div');
-        idDiv.innerHTML = `<p>ID: ${data.EMPLOYEE_ID}</p>`
-        let typeDiv = document.createElement('div');
-        if (data.ROLE == 0)
-            typeDiv.innerHTML = '<p>Type: Employee</p>'
-        else
-            typeDiv.innerHTML = '<p>Type: Manager</p>'
-
-        let manDiv = document.createElement('div');
-        manDiv.innerHTML = `<p>Manager ID: ${data.MANAGER_ID}</p>`
-        let container = document.getElementById('main');
-        container.appendChild(nameDiv);
-        container.appendChild(passDiv);
-        container.appendChild(idDiv);
-        container.appendChild(typeDiv);
-        container.appendChild(manDiv);
-    })
-}
-
-document.getElementById('login').addEventListener('click', load2);
-//document.getElementById('userpass').addEventListener('click', load3);
+let toggleForm = () => {
+    let fields = document.getElementsByClassName("field");
+    for(let field of fields) 
+        field.readOnly = !field.readOnly;
+};

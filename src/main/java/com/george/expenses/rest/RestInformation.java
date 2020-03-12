@@ -21,14 +21,14 @@ public class RestInformation {
 	@Produces(MediaType.APPLICATION_JSON)
 	public EmployeeInfo getInformation(@PathParam("id") int emp_id) {
 		EmployeeInfo info = infodb.getMyInformation(emp_id);
+		info.setId(emp_id);
 		return info;
 	}
 	
 	@PUT
-	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updateInformation(@PathParam("id") int emp_id, EmployeeInfo info) {
-		infodb.updateMyInformation(emp_id, info);
+	public void updateInformation(EmployeeInfo info) {
+		infodb.updateMyInformation(info);
 	}
 }
