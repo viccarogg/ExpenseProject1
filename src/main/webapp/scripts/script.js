@@ -162,7 +162,7 @@ const buildReimbursementRow = (reimb, calledByMan = false) => {
 
     if (reimb.status == "PENDING")
         row.classList.add("bg-warning");
-    else if (reimb.status == "ACCEPTED")
+    else if (reimb.status == "APPROVED")
         row.classList.add("bg-info");
     else if (reimb.status == "DENIED")
         row.classList.add("bg-danger")
@@ -314,7 +314,7 @@ const populateManReimbursements = (man_id, emp_id, status) => {
 const sendReviewReq = (reimb, confirm, man_id, emp_id, status) => {
     let url = 'http://localhost:8081/project1/api/reimbursements';
     if (confirm)
-        reimb.status = "ACCEPTED";
+        reimb.status = "APPROVED";
     else
         reimb.status = "DENIED";
 

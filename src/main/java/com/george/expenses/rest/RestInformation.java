@@ -21,8 +21,11 @@ public class RestInformation {
 	@Produces(MediaType.APPLICATION_JSON)
 	public EmployeeInfo getInformation(@PathParam("id") int emp_id) {
 		EmployeeInfo info = infodb.getMyInformation(emp_id);
-		info.setId(emp_id);
-		return info;
+		if(info != null) {
+			info.setId(emp_id);
+			return info;			
+		}
+		return null;
 	}
 	
 	@PUT
