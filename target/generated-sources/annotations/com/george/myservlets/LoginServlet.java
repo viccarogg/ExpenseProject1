@@ -40,7 +40,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("login failed");
 		response.sendRedirect("/project1");
 	}
 
@@ -67,7 +66,6 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUser", user);
 			response.sendRedirect("home.jsp");
-			System.out.println(getServletContext().getAttribute("conn"));
 		}
 			
 		else {
