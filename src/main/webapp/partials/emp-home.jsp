@@ -1,18 +1,24 @@
+<div class="row w-100 ml-1 mr-1 d-flex justify-content-between">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="info-tab" data-toggle="tab" href="#myInfo" role="tab" aria-controls="myInfo"
+                aria-selected="false">My Information</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="reimb-tab" data-toggle="tab" href="#myReimbursements" role="tab"
+                aria-controls="myReimbursements" aria-selected="false">My Reimbursements</a>
+        </li>
+    </ul>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-            aria-selected="true">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="info-tab" data-toggle="tab" href="#myInfo" role="tab" aria-controls="myInfo"
-            aria-selected="false">My Information</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="reimb-tab" data-toggle="tab" href="#myReimbursements" role="tab"
-            aria-controls="myReimbursements" aria-selected="false">My Reimbursements</a>
-    </li>
-</ul>
+        <form action="logout" >
+            <input type="submit" class="btn btn-dark" value="Logout">
+        </form>
+
+</div>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="row">
@@ -24,7 +30,7 @@
                         <p class="card-text">GEORGE, LLC. has finally come to a decision on an Initial Public Offering.
                             After being valued at $150 billion, the company made its IPO with an a staggering $35
                             billion! This historic IPO beats out the previous record for largest IPO set in 2020 by
-                            <i>Saudi Aramco</i> by almost $10
+                            <em>Saudi Aramco</em> by almost $10
                             billion. Founder, CEO, and majority shareholder George has this to say:
                             <blockquote class="blockquote">
                                 <p class="mb-0">Yeah, it's pretty cool. I'm stoked about the whole deal.</p>
@@ -33,7 +39,7 @@
                             </blockquote>
                             Things are looking up for the company as George vows to take GEORGE, LLC. to new heights.
                         </p>
-                        <a href="#" class="btn btn-primary">Read more on <i>Forbes</i></a>
+                        <a href="#" class="btn btn-primary">Read more on <em>Forbes</em></a>
                     </div>
                 </div>
             </div>

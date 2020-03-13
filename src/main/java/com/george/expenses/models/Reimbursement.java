@@ -79,5 +79,13 @@ public class Reimbursement {
 		this.receiptImage = receiptImage;
 	}
 	
+	public Reimbursement() {}
+	public Reimbursement(String description, double amount, int ownerId, String creator) {
+		super();
+		this.description = description;
+		this.amount = amount;
+		this.ownerId = ownerId;
+		this.creator = creator;
+	}
 	
 }

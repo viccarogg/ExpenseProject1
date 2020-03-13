@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import com.george.expenses.models.Employee;
 import com.george.expenses.models.Manager;
+import com.george.expenses.models.User;
 
 public class EmployeeDB implements EmployeeDAO {
 	Connection conn = MyConnection.getMyConnInstance().getConn();
@@ -112,17 +113,20 @@ public class EmployeeDB implements EmployeeDAO {
 	}
 
 	@Override
-	public Collection<Employee> getAllEmployees() {
-		Collection<Employee> result = new ArrayList<Employee>();
+	public Collection<User> getAllEmployees() {
+		Collection<User> result = new ArrayList<User>();
 		String sql = "SELECT * FROM employees";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// employee matched these credentials. if not then this returns null.
-				result.add(new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"),
-						rs.getInt("manager_id")));
+				if(rs.getInt("role") == 0)
+					result.add(new Employee(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"), 
+							rs.getInt("manager_id")));
+				else
+					result.add(new Manager(rs.getInt("employee_id"), rs.getString("username"), rs.getString("password"), 
+							rs.getInt("manager_id")));
 			}
 
 		} catch (SQLException e) {

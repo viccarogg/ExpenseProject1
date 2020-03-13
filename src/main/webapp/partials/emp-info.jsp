@@ -49,6 +49,6 @@
     </div>
     <div class="col-sm-2">
         <button id="editInfoForm" class="btn btn-secondary btn-lg btn-block form-control">Edit</button>
-        <button id="submitInfoForm" class="btn btn-primary btn-lg btn-block form-control" hidden>Save Changes</button>
+        <button id="submitInfoForm" class="btn btn-primary btn-lg btn-block form-control" hidden>Save</button>
     </div>
 </div>

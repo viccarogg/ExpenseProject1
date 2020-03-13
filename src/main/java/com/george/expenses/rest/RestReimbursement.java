@@ -79,7 +79,7 @@ public class RestReimbursement {
 	}
 	
 	@PUT
-	@Path("/employee/{id}")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void confirmReimbursement(Reimbursement reimb) {

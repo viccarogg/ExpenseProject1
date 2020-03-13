@@ -69,6 +69,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("home.jsp");
 			System.out.println(getServletContext().getAttribute("conn"));
 		}
+			
 		else {
 			doGet(request, response);
 		}
